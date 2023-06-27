@@ -62,13 +62,28 @@ public class StudentH2Service implements StudentRepository {
 
             return savedStudent;
     }
+    @Override
+    public String addMultipleStudents(ArrayList<Student> studentsList) { 
+
+        for (Student eachStudent : studentsList) { 
+            db.update("insert into student(studentName,gender,standard) values (?,?,?)", eachStudent.getStudentName(),
+                    eachStudent.getGender(), eachStudent.getStandard());
+        }
+
+
+        String responseMessage = String.format("Successfully added %d students", studentsList.size()); 
+
+
+
+        return responseMessage;
+    }
 
     @Override
     public Student getStudentById(int studentId) {
 
       try{
         
-        Student student = db.queryForObject("select * from STUDENT where id = ?", new StudentRowMapper(), studentId);
+        Student student = db.queryForObject("select * from STUDENT where studentId = ?", new StudentRowMapper(), studentId);
         
         return student;
         }
