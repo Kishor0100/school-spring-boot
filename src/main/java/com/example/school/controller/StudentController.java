@@ -38,6 +38,12 @@ public class StudentController {
     public Student addStudent(@RequestBody Student student) {
         return studentService.addStudent(student);
     } 
+   
+   @PostMapping("/students/bulk")
+
+    public String addMultipleStudents(@RequestBody ArrayList<Student> studentsList) {
+
+        return studentService.addMultipleStudents(studentsList);
 
     @PostMapping("/students/bulk")
     public Student addStudent(@PathVariable("studentId") int studentId, @RequestBody Student student) {
